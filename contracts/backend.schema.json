@@ -1,0 +1,541 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/contracts/backend.schema.json",
+  "title": "种业联合研发转化后台",
+  "description": "贯通种质材料、亲本组合、试验方案、多点多年数据、品种审定、配套技术、许可与推广反馈；按参与方隔离未公开信息，全部关键动作带时间依据。样例为虚构数据。",
+  "type": "object",
+  "required": [
+    "domain", "version", "sample_id", "actors", "teams", "participations",
+    "sites", "special_categories", "germplasm", "material_transfers",
+    "lineage_events", "crosses", "demands", "trial_protocols", "trials",
+    "observations", "negative_results", "varieties", "approvals",
+    "approval_change_sets", "technique_packages", "ip_shares",
+    "confirmations", "licenses", "adoption_feedback", "withdrawals"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "domain": {"const": "seed-joint-rd-transfer-backend"},
+    "version": {"type": "integer", "minimum": 2},
+    "sample_id": {"type": "string", "minLength": 1},
+    "note": {"type": "string"},
+
+    "actors": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/actor"}},
+    "teams": {"type": "array", "items": {"$ref": "#/$defs/team"}},
+    "participations": {"type": "array", "items": {"$ref": "#/$defs/participation"}},
+    "sites": {"type": "array", "items": {"$ref": "#/$defs/site"}},
+    "special_categories": {"type": "array", "items": {"$ref": "#/$defs/special_category"}},
+    "germplasm": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/germplasm"}},
+    "material_transfers": {"type": "array", "items": {"$ref": "#/$defs/material_transfer"}},
+    "lineage_events": {"type": "array", "items": {"$ref": "#/$defs/lineage_event"}},
+    "crosses": {"type": "array", "items": {"$ref": "#/$defs/cross"}},
+    "demands": {"type": "array", "items": {"$ref": "#/$defs/demand"}},
+    "trial_protocols": {"type": "array", "items": {"$ref": "#/$defs/protocol"}},
+    "trials": {"type": "array", "items": {"$ref": "#/$defs/trial"}},
+    "observations": {"type": "array", "items": {"$ref": "#/$defs/observation"}},
+    "negative_results": {"type": "array", "items": {"$ref": "#/$defs/negative_result"}},
+    "varieties": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/variety"}},
+    "approvals": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/approval"}},
+    "approval_change_sets": {"type": "array", "items": {"$ref": "#/$defs/change_set"}},
+    "technique_packages": {"type": "array", "items": {"$ref": "#/$defs/technique_package"}},
+    "ip_shares": {"type": "array", "items": {"$ref": "#/$defs/ip_share"}},
+    "confirmations": {"type": "array", "items": {"$ref": "#/$defs/confirmation"}},
+    "licenses": {"type": "array", "items": {"$ref": "#/$defs/license"}},
+    "adoption_feedback": {"type": "array", "items": {"$ref": "#/$defs/adoption_feedback"}},
+    "withdrawals": {"type": "array", "items": {"$ref": "#/$defs/withdrawal"}}
+  },
+
+  "$defs": {
+    "date": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "datetime_or_date": {"type": "string", "minLength": 8},
+    "party_ref": {"type": "string", "minLength": 1},
+
+    "visible_to": {
+      "type": "array", "minItems": 1,
+      "items": {"type": "string", "minLength": 1},
+      "description": "可见参与方ID列表；\"*\" 表示对全部参与方公开，否则按参与方隔离。"
+    },
+
+    "scope": {
+      "type": "object",
+      "description": "审定版本、区域适配、栽培技术或许可的作用范围；变更只作用于明确范围。",
+      "required": ["type"],
+      "properties": {
+        "type": {"type": "string", "enum": ["region_list", "all_approved_regions", "national"]},
+        "regions": {"type": "array", "items": {"type": "string"}},
+        "site_ids": {"type": "array", "items": {"type": "string"}},
+        "note": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "actor": {
+      "type": "object",
+      "required": ["id", "name", "type"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "type": {"type": "string", "enum": ["research", "enterprise", "extension", "review_authority"]},
+        "teams": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+
+    "team": {
+      "type": "object",
+      "required": ["id", "name", "owner_org"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "owner_org": {"type": "string"},
+        "lead_person": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "participation": {
+      "type": "object",
+      "required": ["id", "project", "party_id", "role", "from"],
+      "properties": {
+        "id": {"type": "string"},
+        "project": {"type": "string"},
+        "party_id": {"type": "string"},
+        "role": {"type": "string"},
+        "from": {"$ref": "#/$defs/date"},
+        "to": {"$ref": "#/$defs/date"}
+      },
+      "additionalProperties": false
+    },
+
+    "site": {
+      "type": "object",
+      "required": ["id", "name", "eco_zone", "operator_org"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "eco_zone": {"type": "string"},
+        "operator_org": {"type": "string"},
+        "representative_person": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "special_category": {
+      "type": "object",
+      "required": ["id", "code", "name", "traits", "lead_team"],
+      "properties": {
+        "id": {"type": "string"},
+        "code": {"type": "string"},
+        "name": {"type": "string"},
+        "traits": {"type": "array", "items": {"type": "string"}},
+        "lead_team": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "undisclosed_trait": {
+      "type": "object",
+      "required": ["trait", "visible_to", "recorded_at"],
+      "properties": {
+        "trait": {"type": "string"},
+        "visible_to": {"$ref": "#/$defs/visible_to"},
+        "recorded_at": {"$ref": "#/$defs/date"}
+      },
+      "additionalProperties": false
+    },
+
+    "germplasm": {
+      "type": "object",
+      "required": ["id", "name", "holder_org", "custodian_team", "generation", "lineage_root_id", "created_at"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "category_id": {"type": ["string", "null"]},
+        "origin": {"type": "string"},
+        "holder_org": {"type": "string"},
+        "custodian_team": {"type": "string"},
+        "generation": {"type": "string", "description": "当前繁殖代次，如 S6 / DH3 / F1"},
+        "breeding_status": {"type": "string"},
+        "undisclosed_traits": {"type": "array", "items": {"$ref": "#/$defs/undisclosed_trait"}},
+        "lineage_root_id": {"type": "string", "description": "谱系根材料ID；同一资源被多个团队使用时，各团队在根之下保持独立可追踪分支。"},
+        "created_at": {"$ref": "#/$defs/date"}
+      },
+      "additionalProperties": false
+    },
+
+    "material_transfer": {
+      "type": "object",
+      "description": "材料移交必须说明用途、数量与繁殖代次；由相关合作方同时确认。",
+      "required": ["id", "material_id", "from_org", "to_team", "purpose", "quantity", "generation", "propagation_generation", "transferred_at", "confirmed_by"],
+      "properties": {
+        "id": {"type": "string"},
+        "material_id": {"type": "string"},
+        "from_org": {"type": "string"},
+        "to_org": {"type": "string"},
+        "to_team": {"type": "string"},
+        "purpose": {"type": "string", "minLength": 1},
+        "quantity": {"type": "string", "minLength": 1},
+        "generation": {"type": "string"},
+        "propagation_generation": {"type": "string", "description": "移交时繁殖代次及领用方允许的扩繁代次约束"},
+        "transferred_at": {"$ref": "#/$defs/date"},
+        "confirmed_by": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "confirmation_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+
+    "lineage_event": {
+      "type": "object",
+      "description": "谱系事件：同一材料在每个团队内独立成链（from_event_id 指向本团队上一代），跨团队经 via_transfer_id 关联移交。",
+      "required": ["id", "material_id", "team_id", "event_type", "label", "at"],
+      "properties": {
+        "id": {"type": "string"},
+        "material_id": {"type": "string"},
+        "team_id": {"type": "string"},
+        "event_type": {"type": "string", "enum": ["propagation", "cross", "selection", "introduction"]},
+        "from_event_id": {"type": ["string", "null"]},
+        "label": {"type": "string"},
+        "generation": {"type": "string"},
+        "at": {"$ref": "#/$defs/date"},
+        "via_transfer_id": {"type": ["string", "null"]},
+        "cross_id": {"type": ["string", "null"]},
+        "selected_for": {"type": ["string", "null"]},
+        "note": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "cross": {
+      "type": "object",
+      "required": ["id", "team_id", "made_at", "female_parent", "male_parent"],
+      "properties": {
+        "id": {"type": "string"},
+        "team_id": {"type": "string"},
+        "season": {"type": "string"},
+        "made_at": {"$ref": "#/$defs/date"},
+        "female_parent": {"type": "string"},
+        "male_parent": {"type": "string"},
+        "category_id": {"type": ["string", "null"]},
+        "target_variety_id": {"type": ["string", "null"]},
+        "note": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "demand": {
+      "type": "object",
+      "description": "企业在育种材料阶段提出的口感/加工/机械化需求，必须转化为可考核的试验指标。",
+      "required": ["id", "raised_by", "raised_at", "stage", "statement", "requirement", "indicators", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "raised_by": {"type": "string"},
+        "raised_at": {"$ref": "#/$defs/date"},
+        "stage": {"type": "string", "enum": ["breeding_material", "advanced_line", "pre_approval", "post_approval"]},
+        "category_id": {"type": ["string", "null"]},
+        "statement": {"type": "string"},
+        "requirement": {"type": "string"},
+        "indicators": {"type": "array", "items": {"type": "string"}},
+        "status": {"type": "string", "enum": ["已转化为试验指标", "待证据", "已满足", "未满足"]}
+      },
+      "additionalProperties": false
+    },
+
+    "metric": {
+      "type": "object",
+      "required": ["code", "method"],
+      "properties": {
+        "code": {"type": "string"},
+        "indicator_id": {"type": ["string", "null"]},
+        "method": {"type": "string"},
+        "unit": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "protocol": {
+      "type": "object",
+      "required": ["id", "name", "drafted_by_team", "approved_at", "seasons", "site_ids", "metrics"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "variety_id": {"type": ["string", "null"]},
+        "cross_id": {"type": ["string", "null"]},
+        "drafted_by_team": {"type": "string"},
+        "co_designers": {"type": "array", "items": {"type": "string"}},
+        "approved_at": {"$ref": "#/$defs/date"},
+        "seasons": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "site_ids": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "design": {"type": "object"},
+        "metrics": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/metric"}}
+      },
+      "additionalProperties": false
+    },
+
+    "trial": {
+      "type": "object",
+      "description": "多点多年中的一个点-年组合。",
+      "required": ["id", "protocol_id", "variety_id", "site_id", "season", "year"],
+      "properties": {
+        "id": {"type": "string"},
+        "protocol_id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "site_id": {"type": "string"},
+        "season": {"type": "string"},
+        "year": {"type": "integer"},
+        "sowing_at": {"$ref": "#/$defs/date"},
+        "harvest_at": {"$ref": "#/$defs/date"},
+        "manager_person": {"type": "string"},
+        "weather_note": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "observation": {
+      "type": "object",
+      "description": "试验测定值；negative=true 表示失败/负面结果，必须保留不得删除。",
+      "required": ["id", "trial_id", "variety_id", "metric_code", "value", "recorded_by_team", "negative", "visible_to"],
+      "properties": {
+        "id": {"type": "string"},
+        "trial_id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "metric_code": {"type": "string"},
+        "value": {},
+        "observed_at": {"$ref": "#/$defs/date"},
+        "recorded_by_team": {"type": "string"},
+        "negative": {"type": "boolean"},
+        "visible_to": {"$ref": "#/$defs/visible_to"},
+        "note": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "negative_result": {
+      "type": "object",
+      "required": ["id", "variety_id", "team_id", "recorded_at", "summary", "decision"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "cross_id": {"type": ["string", "null"]},
+        "observation_ids": {"type": "array", "items": {"type": "string"}},
+        "team_id": {"type": "string"},
+        "recorded_at": {"$ref": "#/$defs/date"},
+        "summary": {"type": "string"},
+        "decision": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "variety": {
+      "type": "object",
+      "required": ["id", "name", "cross_id", "breeding_team", "applicant_orgs", "status"],
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "category_id": {"type": ["string", "null"]},
+        "cross_id": {"type": "string"},
+        "breeding_team": {"type": "string"},
+        "applicant_orgs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "current_approval_id": {"type": ["string", "null"]},
+        "status": {"type": "string", "enum": ["in_trials", "submitted", "approved_active", "rejected", "withdrawn"]},
+        "summary": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "approval": {
+      "type": "object",
+      "description": "品种审定版本；版本化，supersedes 指向上一版，scope 限定适宜区域。",
+      "required": ["id", "variety_id", "authority", "approved_at", "decision", "version", "scope"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "authority": {"type": "string"},
+        "approved_at": {"$ref": "#/$defs/date"},
+        "decision": {"type": "string"},
+        "document_no": {"type": "string"},
+        "version": {"type": "string"},
+        "supersedes": {"type": ["string", "null"]},
+        "scope": {"$ref": "#/$defs/scope"},
+        "attached_trial_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+
+    "change_set": {
+      "type": "object",
+      "description": "审定版本/区域适配/栽培技术的成组变更，只作用于明确 scope，由合作方同时确认。",
+      "required": ["id", "variety_id", "kind", "issued_at", "issued_by", "scope", "summary", "confirmed_by"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "kind": {"type": "string", "enum": ["approval_revision", "regional_adaptation_update", "technique_update", "label_correction"]},
+        "issued_at": {"$ref": "#/$defs/date"},
+        "issued_by": {"type": "string"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "summary": {"type": "string"},
+        "affects_approval_version": {"type": "string"},
+        "confirmed_by": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "confirmation_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+
+    "technique_package": {
+      "type": "object",
+      "required": ["id", "variety_id", "name", "version", "issued_at", "issued_by", "scope", "items"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "name": {"type": "string"},
+        "version": {"type": "string"},
+        "issued_at": {"$ref": "#/$defs/date"},
+        "issued_by": {"type": "string"},
+        "scope": {"$ref": "#/$defs/scope"},
+        "items": {"type": "array", "items": {"type": "string"}},
+        "supersedes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+
+    "share_line": {
+      "type": "object",
+      "required": ["party_id", "share_pct"],
+      "properties": {
+        "party_id": {"type": "string"},
+        "share_pct": {"type": "number", "minimum": 0, "maximum": 100}
+      },
+      "additionalProperties": false
+    },
+
+    "ip_share": {
+      "type": "object",
+      "description": "知识产权比例版本；比例调整生成新版本并由全部相关方同时确认，比例合计须为100。",
+      "required": ["id", "variety_id", "version", "effective_from", "shares", "confirmed_by"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "version": {"type": "integer", "minimum": 1},
+        "effective_from": {"$ref": "#/$defs/date"},
+        "basis": {"type": "string"},
+        "shares": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/share_line"}},
+        "confirmed_by": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "confirmation_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+
+    "confirmation": {
+      "type": "object",
+      "description": "多方同时确认记录，提供时间依据。",
+      "required": ["id", "topic", "at", "parties"],
+      "properties": {
+        "id": {"type": "string"},
+        "topic": {"type": "string"},
+        "at": {"$ref": "#/$defs/datetime_or_date"},
+        "parties": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "related": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+
+    "term": {
+      "type": "object",
+      "required": ["start"],
+      "properties": {
+        "start": {"$ref": "#/$defs/date"},
+        "end": {"$ref": "#/$defs/date"}
+      },
+      "additionalProperties": false
+    },
+
+    "commercial_terms": {
+      "type": "object",
+      "description": "商业条款按参与方隔离：仅 visible_to 所列方可读取金额与费率。",
+      "required": ["visible_to"],
+      "properties": {
+        "visible_to": {"$ref": "#/$defs/visible_to"},
+        "currency": {"type": "string"},
+        "entry_fee": {"type": "number"},
+        "royalty_pct_of_revenue": {"type": "number"},
+        "min_annual_guarantee": {"type": "number"},
+        "min_annual_guarantee_region": {"type": "number"},
+        "payment_milestones": {"type": "string"},
+        "note": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+
+    "license": {
+      "type": "object",
+      "required": ["id", "variety_id", "licensor", "licensee", "type", "signed_at", "status", "scope", "term", "grant"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "licensor": {"type": "string"},
+        "licensee": {"type": "string"},
+        "type": {"type": "string"},
+        "signed_at": {"$ref": "#/$defs/date"},
+        "status": {"type": "string", "enum": ["active", "suspended", "terminated"]},
+        "scope": {"$ref": "#/$defs/scope"},
+        "term": {"$ref": "#/$defs/term"},
+        "grant": {"type": "string"},
+        "commercial_terms": {"$ref": "#/$defs/commercial_terms"},
+        "confirmation_ids": {"type": "array", "items": {"type": "string"}},
+        "amended_by": {"type": "array", "items": {"type": "string"}},
+        "terminated_by_withdrawal": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+
+    "metric_update": {
+      "type": "object",
+      "required": ["metric_code", "value"],
+      "properties": {
+        "metric_code": {"type": "string"},
+        "value": {},
+        "source": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+
+    "adoption_feedback": {
+      "type": "object",
+      "description": "推广面积与实际种植表现按报告时间回传。",
+      "required": ["id", "variety_id", "reported_by", "reported_at", "planted_area_mu", "visible_to"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "reported_by": {"type": "string"},
+        "reported_at": {"$ref": "#/$defs/date"},
+        "season": {"type": "string"},
+        "region": {"type": "string"},
+        "site_id": {"type": "string"},
+        "planted_area_mu": {"type": "number", "minimum": 0},
+        "metric_updates": {"type": "array", "items": {"$ref": "#/$defs/metric_update"}},
+        "issues": {"type": "array", "items": {"type": "string"}},
+        "visible_to": {"$ref": "#/$defs/visible_to"}
+      },
+      "additionalProperties": false
+    },
+
+    "withdrawal": {
+      "type": "object",
+      "description": "品种撤回：记录发起、生效时间、证据链、作用范围与各方确认。",
+      "required": ["id", "variety_id", "initiated_by", "noticed_at", "effective_at", "reason", "evidence", "scope", "actions", "confirmed_by"],
+      "properties": {
+        "id": {"type": "string"},
+        "variety_id": {"type": "string"},
+        "initiated_by": {"type": "string"},
+        "co_initiated_by": {"type": "array", "items": {"type": "string"}},
+        "noticed_at": {"$ref": "#/$defs/date"},
+        "effective_at": {"$ref": "#/$defs/date"},
+        "reason": {"type": "string"},
+        "evidence": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "scope": {"$ref": "#/$defs/scope"},
+        "actions": {"type": "array", "items": {"type": "string"}},
+        "confirmed_by": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "confirmation_ids": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

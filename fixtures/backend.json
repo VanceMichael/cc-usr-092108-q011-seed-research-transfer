@@ -1,0 +1,405 @@
+{
+  "domain": "seed-joint-rd-transfer-backend",
+  "version": 2,
+  "sample_id": "sample-021",
+  "note": "本样例全部为虚构数据，仅用于说明联合研发转化后台的数据关系；不含真实个人信息、账号、密钥或连接凭据。",
+
+  "actors": [
+    {"id": "ORG-IAAS", "name": "省农业科学院作物研究所", "type": "research", "teams": ["TM-CORN", "TM-MINOR"]},
+    {"id": "ORG-UNIV", "name": "农业大学特色作物研究中心", "type": "research", "teams": ["TM-UNIV"]},
+    {"id": "ENT-01", "name": "金穗鲜食农业科技有限公司", "type": "enterprise"},
+    {"id": "ENT-02", "name": "沃田绿加工食品集团", "type": "enterprise"},
+    {"id": "ENT-03", "name": "春禾鲜食种业有限公司", "type": "enterprise"},
+    {"id": "STA-EXT", "name": "省农业技术推广总站", "type": "extension"},
+    {"id": "STA-REV", "name": "省农作物品种审定委员会办公室", "type": "review_authority"}
+  ],
+
+  "teams": [
+    {"id": "TM-CORN", "name": "鲜食玉米育种组", "owner_org": "ORG-IAAS", "lead_person": "周育种"},
+    {"id": "TM-MINOR", "name": "特色杂粮育种组", "owner_org": "ORG-IAAS", "lead_person": "吴育种"},
+    {"id": "TM-UNIV", "name": "大学品质育种团队", "owner_org": "ORG-UNIV", "lead_person": "郑教授"}
+  ],
+
+  "participations": [
+    {"id": "PA-01", "project": "鲜食玉米与特色作物联合研发转化", "party_id": "ORG-IAAS", "role": "主持科研单位", "from": "2023-01-05"},
+    {"id": "PA-02", "project": "鲜食玉米与特色作物联合研发转化", "party_id": "ORG-UNIV", "role": "品质检测与参试", "from": "2023-01-05"},
+    {"id": "PA-03", "project": "鲜食玉米与特色作物联合研发转化", "party_id": "ENT-01", "role": "牵头企业（材料阶段参与）", "from": "2023-01-06"},
+    {"id": "PA-04", "project": "鲜食玉米与特色作物联合研发转化", "party_id": "ENT-02", "role": "加工需求与订单收购", "from": "2023-01-06"},
+    {"id": "PA-05", "project": "鲜食玉米与特色作物联合研发转化", "party_id": "ENT-03", "role": "北方区域示范与推广", "from": "2025-01-10"}
+  ],
+
+  "sites": [
+    {"id": "TP-HF", "name": "合肥综合试验站", "eco_zone": "长江中下游夏播区", "operator_org": "ORG-IAAS", "representative_person": "陈点长"},
+    {"id": "TP-SQ", "name": "商丘机械化试验点", "eco_zone": "黄淮海夏播区", "operator_org": "STA-EXT", "representative_person": "孙点长"},
+    {"id": "TP-YC", "name": "宜昌加工原料试验点", "eco_zone": "西南山地春播区", "operator_org": "ENT-02", "representative_person": "何点长"},
+    {"id": "TP-HJ", "name": "哈尔滨春播试验站", "eco_zone": "北方春播早熟区", "operator_org": "ENT-03", "representative_person": "赵点长"}
+  ],
+
+  "special_categories": [
+    {"id": "SC-01", "code": "鲜食甜玉米", "name": "鲜食甜玉米", "traits": ["口感甜脆", "皮薄无渣", "适宜鲜穗上市"], "lead_team": "TM-CORN"},
+    {"id": "SC-02", "code": "加工型玉米", "name": "加工型（粒用/速冻）玉米", "traits": ["出籽率高", "粒深", "适合机械粒收"], "lead_team": "TM-CORN"},
+    {"id": "SC-03", "code": "鲜食糯玉米", "name": "鲜食糯玉米", "traits": ["糯性好", "适宜蒸煮保鲜"], "lead_team": "TM-CORN"},
+    {"id": "SC-04", "code": "特色杂粮", "name": "特色杂粮（苦荞等）", "traits": ["区域特色", "订单加工"], "lead_team": "TM-MINOR"}
+  ],
+
+  "germplasm": [
+    {
+      "id": "GP-007", "name": "甜质自交系 甜7", "category_id": "SC-01",
+      "origin": "项目自有材料，源自引进杂交种二环系选育",
+      "holder_org": "ORG-IAAS", "custodian_team": "TM-CORN",
+      "generation": "S6", "breeding_status": "稳定自交系",
+      "undisclosed_traits": [
+        {"trait": "耐热配合力基因型背景", "visible_to": ["ORG-IAAS"], "recorded_at": "2022-12-10"}
+      ],
+      "lineage_root_id": "GP-007",
+      "created_at": "2019-09-20"
+    },
+    {
+      "id": "GP-014", "name": "糯质自交系 糯14", "category_id": "SC-03",
+      "origin": "地方糯玉米资源连续自交选育",
+      "holder_org": "ORG-IAAS", "custodian_team": "TM-CORN",
+      "generation": "S5", "breeding_status": "稳定自交系",
+      "undisclosed_traits": [],
+      "lineage_root_id": "GP-014",
+      "created_at": "2021-10-12"
+    },
+    {
+      "id": "GP-021", "name": "高配合力甜系 甜21", "category_id": "SC-01",
+      "origin": "项目自有材料，单倍体加倍育成",
+      "holder_org": "ORG-IAAS", "custodian_team": "TM-CORN",
+      "generation": "DH3", "breeding_status": "加倍单倍体纯系",
+      "undisclosed_traits": [
+        {"trait": "DH诱导系来源与加倍率数据", "visible_to": ["ORG-IAAS", "ORG-UNIV"], "recorded_at": "2022-11-02"}
+      ],
+      "lineage_root_id": "GP-021",
+      "created_at": "2022-08-30"
+    },
+    {
+      "id": "GP-101", "name": "苦荞品系 苦荞101", "category_id": "SC-04",
+      "origin": "西南山区地方苦荞系选",
+      "holder_org": "ORG-UNIV", "custodian_team": "TM-UNIV",
+      "generation": "S4", "breeding_status": "高代品系",
+      "undisclosed_traits": [],
+      "lineage_root_id": "GP-101",
+      "created_at": "2020-06-15"
+    }
+  ],
+
+  "material_transfers": [
+    {
+      "id": "T-01", "material_id": "GP-007",
+      "from_org": "ORG-IAAS", "to_team": "TM-CORN", "to_org": "ORG-IAAS",
+      "purpose": "鲜食甜玉米亲本组合配制与配合力鉴定",
+      "quantity": "种子600粒", "generation": "S6", "propagation_generation": "S6（原样移交，领用方扩繁不超过S7）",
+      "transferred_at": "2023-02-15", "confirmed_by": ["ORG-IAAS", "ENT-01"],
+      "confirmation_ids": ["CNF-01"]
+    },
+    {
+      "id": "T-02", "material_id": "GP-007",
+      "from_org": "ORG-IAAS", "to_team": "TM-MINOR", "to_org": "ORG-IAAS",
+      "purpose": "特色甜糯间作品类配合力观察（独立谱系分支）",
+      "quantity": "种子200粒", "generation": "S6", "propagation_generation": "S6（独立编号分支，不得与TM-CORN批次混繁）",
+      "transferred_at": "2023-02-15", "confirmed_by": ["ORG-IAAS", "ENT-01"],
+      "confirmation_ids": ["CNF-01"]
+    },
+    {
+      "id": "T-03", "material_id": "GP-021",
+      "from_org": "ORG-IAAS", "to_team": "TM-CORN", "to_org": "ORG-IAAS",
+      "purpose": "高配组合亲本，与GP-007配制主推组合",
+      "quantity": "种子400粒", "generation": "DH3", "propagation_generation": "DH3（隔离繁殖，子代记DH3-R1）",
+      "transferred_at": "2023-02-20", "confirmed_by": ["ORG-IAAS", "ENT-01"],
+      "confirmation_ids": ["CNF-02"]
+    },
+    {
+      "id": "T-04", "material_id": "GP-101",
+      "from_org": "ORG-UNIV", "to_team": "TM-MINOR", "to_org": "ORG-IAAS",
+      "purpose": "苦荞区域试验与订单加工适配评价",
+      "quantity": "种子1.5kg", "generation": "S4", "propagation_generation": "S4（跨单位移交，繁殖至S5须回告知源单位）",
+      "transferred_at": "2023-03-06", "confirmed_by": ["ORG-UNIV", "ORG-IAAS", "ENT-02"],
+      "confirmation_ids": ["CNF-03"]
+    }
+  ],
+
+  "lineage_events": [
+    {"id": "L-2023-007", "material_id": "GP-007", "team_id": "TM-CORN", "event_type": "propagation", "from_event_id": null, "label": "TM-CORN:S7", "generation": "S7", "at": "2023-05-10", "via_transfer_id": "T-01", "note": "隔离扩繁株行"},
+    {"id": "L-2023-107", "material_id": "GP-007", "team_id": "TM-MINOR", "event_type": "propagation", "from_event_id": null, "label": "TM-MINOR:S7", "generation": "S7", "at": "2023-05-12", "via_transfer_id": "T-02", "note": "独立编号分支扩繁"},
+    {"id": "L-2023-021", "material_id": "GP-021", "team_id": "TM-CORN", "event_type": "propagation", "from_event_id": null, "label": "TM-CORN:DH3-R1", "generation": "DH3-R1", "at": "2023-05-10", "via_transfer_id": "T-03"},
+    {"id": "L-2023-C07", "material_id": "GP-007", "team_id": "TM-CORN", "event_type": "cross", "from_event_id": "L-2023-007", "label": "组合C-2023-007 F1", "generation": "F1", "at": "2023-08-18", "cross_id": "C-2023-007"},
+    {"id": "L-2023-C18", "material_id": "GP-014", "team_id": "TM-CORN", "event_type": "cross", "from_event_id": null, "label": "组合C-2023-018 F1", "generation": "F1", "at": "2023-08-20", "cross_id": "C-2023-018"},
+    {"id": "L-2024-SEL07", "material_id": "GP-007", "team_id": "TM-CORN", "event_type": "selection", "from_event_id": "L-2023-C07", "label": "组合2307优良单穗混选", "generation": "F2", "at": "2024-09-25", "selected_for": "V-ZN2026001"},
+    {"id": "L-2022-C31", "material_id": "GP-014", "team_id": "TM-CORN", "event_type": "cross", "from_event_id": null, "label": "组合C-2022-031 F1", "generation": "F1", "at": "2022-08-16", "cross_id": "C-2022-031"},
+    {"id": "L-2023-C31S", "material_id": "GP-014", "team_id": "TM-CORN", "event_type": "selection", "from_event_id": "L-2022-C31", "label": "组合2231稳定选系", "generation": "F5", "at": "2023-10-08", "selected_for": "V-ZN2025009"},
+    {"id": "L-2023-101", "material_id": "GP-101", "team_id": "TM-MINOR", "event_type": "propagation", "from_event_id": null, "label": "TM-MINOR:S5", "generation": "S5", "at": "2023-06-02", "via_transfer_id": "T-04", "note": "跨单位移交后在TM-MINOR独立成支，繁殖至S5已回告知源单位ORG-UNIV"}
+  ],
+
+  "crosses": [
+    {
+      "id": "C-2023-007", "team_id": "TM-CORN", "season": "2023夏", "made_at": "2023-08-18",
+      "female_parent": "GP-021", "male_parent": "GP-007",
+      "category_id": "SC-01", "target_variety_id": "V-ZN2026001",
+      "note": "以高配合力甜系为母本，配制适合鲜穗与机械粒收的甜玉米组合"
+    },
+    {
+      "id": "C-2023-018", "team_id": "TM-CORN", "season": "2023夏", "made_at": "2023-08-20",
+      "female_parent": "GP-014", "male_parent": "GP-007",
+      "category_id": "SC-03", "target_variety_id": null,
+      "note": "甜糯组合观察圃，部分株行皮渣率偏高，未升级"
+    },
+    {
+      "id": "C-2022-031", "team_id": "TM-CORN", "season": "2022夏", "made_at": "2022-08-16",
+      "female_parent": "GP-014", "male_parent": "GP-021",
+      "category_id": "SC-03", "target_variety_id": "V-ZN2025009",
+      "note": "白粒甜加糯组合，后定名雪甜糯9号"
+    }
+  ],
+
+  "demands": [
+    {
+      "id": "D-01", "raised_by": "ENT-01", "raised_at": "2023-01-12", "stage": "breeding_material",
+      "category_id": "SC-01",
+      "statement": "鲜穗入口甜脆、皮薄无渣，消费者复购导向",
+      "requirement": "口感必须在选系早期可测量，而不是审定后再评价",
+      "indicators": ["IN-2024-03-01"],
+      "status": "已转化为试验指标"
+    },
+    {
+      "id": "D-02", "raised_by": "ENT-02", "raised_at": "2023-01-18", "stage": "breeding_material",
+      "category_id": "SC-02",
+      "statement": "速冻粒原料：出籽率高、粒深、破损率低",
+      "requirement": "加工性状要写进多点试验，订单收购按指标分级",
+      "indicators": ["IN-2024-03-02"],
+      "status": "已转化为试验指标"
+    },
+    {
+      "id": "D-03", "raised_by": "ENT-01", "raised_at": "2023-02-02", "stage": "breeding_material",
+      "category_id": "SC-02",
+      "statement": "黄淮海地块要求可机械直收籽粒，落粒与倒伏要低",
+      "requirement": "机械化适配在区试同步考核，机收损失率可量化",
+      "indicators": ["IN-2024-03-03", "IN-2024-03-04"],
+      "status": "已转化为试验指标"
+    },
+    {
+      "id": "D-04", "raised_by": "ENT-01", "raised_at": "2024-11-05", "stage": "advanced_line",
+      "category_id": "SC-01",
+      "statement": "希望兼具滨海盐碱地耐盐碱性",
+      "requirement": "土壤含盐量0.3%下出苗率不低于90%",
+      "indicators": ["IN-2024-03-05"],
+      "status": "待证据"
+    }
+  ],
+
+  "trial_protocols": [
+    {
+      "id": "P-2024-03", "name": "甜玉米组合2307多点多年品比与生态试验方案",
+      "variety_id": "V-ZN2026001", "cross_id": "C-2023-007",
+      "drafted_by_team": "TM-CORN", "co_designers": ["ENT-01", "ENT-02"],
+      "approved_at": "2024-01-20",
+      "seasons": ["2024", "2025"],
+      "site_ids": ["TP-HF", "TP-SQ", "TP-YC"],
+      "design": {"replicates": 3, "plot_area_m2": 24, "control": "当地主栽甜玉米品种"},
+      "metrics": [
+        {"code": "感官品质总评分", "indicator_id": "IN-2024-03-01", "method": "采收期蒸煮品尝9分制，≥8.0为优", "unit": "分"},
+        {"code": "皮渣率", "indicator_id": "IN-2024-03-01", "method": "GB/T 鲜食玉米皮渣率测定，≤12.0%", "unit": "%"},
+        {"code": "可溶性总糖", "indicator_id": "IN-2024-03-01", "method": "鲜籽粒蒽酮比色，适宜采收期", "unit": "%"},
+        {"code": "出籽率", "indicator_id": "IN-2024-03-02", "method": "鲜穗脱粒称取，出籽率≥68%", "unit": "%"},
+        {"code": "粒深", "indicator_id": "IN-2024-03-02", "method": "穗中部纵切测量", "unit": "mm"},
+        {"code": "机收损失率", "indicator_id": "IN-2024-03-03", "method": "机收后小区落粒+落穗折算，≤5%", "unit": "%"},
+        {"code": "倒伏倒折率", "indicator_id": "IN-2024-03-04", "method": "收获前调查，≤8%", "unit": "%"},
+        {"code": "亩产", "indicator_id": null, "method": "小区实收折算", "unit": "kg/亩"},
+        {"code": "配合力内部评级", "indicator_id": null, "method": "育种团队内部配合力评级；含未公开基因型背景解释，仅授权参与方可在观测记录中调阅", "unit": "等级"}
+      ]
+    },
+    {
+      "id": "P-2024-09", "name": "雪甜糯9号北方春播区适应性鉴定方案",
+      "variety_id": "V-ZN2025009", "cross_id": "C-2022-031",
+      "drafted_by_team": "TM-CORN", "co_designers": ["ENT-03"],
+      "approved_at": "2024-02-12",
+      "seasons": ["2024", "2025"],
+      "site_ids": ["TP-HJ"],
+      "design": {"replicates": 2, "plot_area_m2": 30, "control": "当地主栽糯玉米品种"},
+      "metrics": [
+        {"code": "感官品质总评分", "indicator_id": null, "method": "蒸煮品尝9分制", "unit": "分"},
+        {"code": "倒伏倒折率", "indicator_id": null, "method": "收获前调查", "unit": "%"},
+        {"code": "茎腐病田间诱发鉴定", "indicator_id": null, "method": "高湿人工接菌，病情指数≤20为抗", "unit": "病情指数"},
+        {"code": "亩产", "indicator_id": null, "method": "小区实收折算", "unit": "kg/亩"}
+      ]
+    }
+  ],
+
+  "trials": [
+    {"id": "TR-2024-HF", "protocol_id": "P-2024-03", "variety_id": "V-ZN2026001", "site_id": "TP-HF", "season": "2024", "year": 2024, "sowing_at": "2024-04-02", "harvest_at": "2024-07-15", "manager_person": "陈点长", "weather_note": "花期连续阴雨3天，光照偏少"},
+    {"id": "TR-2024-SQ", "protocol_id": "P-2024-03", "variety_id": "V-ZN2026001", "site_id": "TP-SQ", "season": "2024", "year": 2024, "sowing_at": "2024-05-20", "harvest_at": "2024-09-05", "manager_person": "孙点长", "weather_note": "正常年景"},
+    {"id": "TR-2024-YC", "protocol_id": "P-2024-03", "variety_id": "V-ZN2026001", "site_id": "TP-YC", "season": "2024", "year": 2024, "sowing_at": "2024-03-28", "harvest_at": "2024-07-08", "manager_person": "何点长", "weather_note": "山地春播，伏旱偏轻"},
+    {"id": "TR-2025-HF", "protocol_id": "P-2024-03", "variety_id": "V-ZN2026001", "site_id": "TP-HF", "season": "2025", "year": 2025, "sowing_at": "2025-04-05", "harvest_at": "2025-07-18", "manager_person": "陈点长", "weather_note": "光温正常"},
+    {"id": "TR-2025-SQ", "protocol_id": "P-2024-03", "variety_id": "V-ZN2026001", "site_id": "TP-SQ", "season": "2025", "year": 2025, "sowing_at": "2025-05-22", "harvest_at": "2025-09-08", "manager_person": "孙点长", "weather_note": "收获期阵风较大"},
+    {"id": "TR-2024-HJ", "protocol_id": "P-2024-09", "variety_id": "V-ZN2025009", "site_id": "TP-HJ", "season": "2024", "year": 2024, "sowing_at": "2024-05-06", "harvest_at": "2024-09-12", "manager_person": "赵点长", "weather_note": "正常年景"},
+    {"id": "TR-2025-HJ", "protocol_id": "P-2024-09", "variety_id": "V-ZN2025009", "site_id": "TP-HJ", "season": "2025", "year": 2025, "sowing_at": "2025-05-08", "harvest_at": "2025-09-15", "manager_person": "赵点长", "weather_note": "8月高湿寡照"}
+  ],
+
+  "observations": [
+    {"id": "OBS-001", "trial_id": "TR-2024-HF", "variety_id": "V-ZN2026001", "metric_code": "感官品质总评分", "value": 8.3, "observed_at": "2024-07-10", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-002", "trial_id": "TR-2024-HF", "variety_id": "V-ZN2026001", "metric_code": "皮渣率", "value": 11.2, "observed_at": "2024-07-10", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-003", "trial_id": "TR-2024-HF", "variety_id": "V-ZN2026001", "metric_code": "可溶性总糖", "value": 16.8, "observed_at": "2024-07-10", "recorded_by_team": "TM-UNIV", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-004", "trial_id": "TR-2024-SQ", "variety_id": "V-ZN2026001", "metric_code": "机收损失率", "value": 4.4, "observed_at": "2024-09-05", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-005", "trial_id": "TR-2024-SQ", "variety_id": "V-ZN2026001", "metric_code": "倒伏倒折率", "value": 6.1, "observed_at": "2024-09-03", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-006", "trial_id": "TR-2024-YC", "variety_id": "V-ZN2026001", "metric_code": "出籽率", "value": 65.9, "observed_at": "2024-07-05", "recorded_by_team": "TM-CORN", "negative": true, "visible_to": ["*"], "note": "低于方案阈值68%，加工性状在山地春播点未达标，结果保留并用于点次淘汰决策"},
+    {"id": "OBS-007", "trial_id": "TR-2024-YC", "variety_id": "V-ZN2026001", "metric_code": "粒深", "value": 9.8, "observed_at": "2024-07-05", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-008", "trial_id": "TR-2025-HF", "variety_id": "V-ZN2026001", "metric_code": "感官品质总评分", "value": 8.5, "observed_at": "2025-07-12", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-009", "trial_id": "TR-2025-SQ", "variety_id": "V-ZN2026001", "metric_code": "机收损失率", "value": 3.9, "observed_at": "2025-09-08", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-010", "trial_id": "TR-2025-HJ", "variety_id": "V-ZN2025009", "metric_code": "茎腐病田间诱发鉴定", "value": 31.5, "observed_at": "2025-08-28", "recorded_by_team": "TM-CORN", "negative": true, "visible_to": ["*"], "note": "病情指数高于阈值20，高湿年型下感病，负面结果保留"},
+    {"id": "OBS-011", "trial_id": "TR-2024-HJ", "variety_id": "V-ZN2025009", "metric_code": "感官品质总评分", "value": 8.1, "observed_at": "2024-09-08", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-012", "trial_id": "TR-2024-HF", "variety_id": "V-ZN2026001", "metric_code": "亩产", "value": 1082, "observed_at": "2024-07-15", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-013", "trial_id": "TR-2025-SQ", "variety_id": "V-ZN2026001", "metric_code": "倒伏倒折率", "value": 7.8, "observed_at": "2025-09-05", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["*"]},
+    {"id": "OBS-014", "trial_id": "TR-2024-HF", "variety_id": "V-ZN2026001", "metric_code": "配合力内部评级", "value": "A（含热胁迫配合力解释）", "observed_at": "2024-07-20", "recorded_by_team": "TM-CORN", "negative": false, "visible_to": ["ORG-IAAS", "ORG-UNIV", "ENT-01"], "note": "含未公开基因型背景解释，按参与方隔离"}
+  ],
+
+  "negative_results": [
+    {"id": "N-01", "variety_id": "V-ZN2026001", "cross_id": "C-2023-018", "observation_ids": ["OBS-006"], "team_id": "TM-CORN", "recorded_at": "2024-07-20", "summary": "宜昌点出籽率65.9%未达加工指标；C-2023-018甜糯组合皮渣率偏高，终止升级。失败与负面数据不删除，作为组合与点次淘汰依据。", "decision": "保留为技术储备，不纳入申报"},
+    {"id": "N-02", "variety_id": "V-ZN2025009", "cross_id": "C-2022-031", "observation_ids": ["OBS-010"], "team_id": "TM-CORN", "recorded_at": "2025-09-20", "summary": "2025年哈尔滨高湿年型茎腐病病情指数31.5，抗性不达标；该负面信号在后续大区监测中被复现。", "decision": "纳入品种风险提示并触发撤回评估"}
+  ],
+
+  "varieties": [
+    {
+      "id": "V-ZN2026001", "name": "金甜玉1号", "category_id": "SC-01",
+      "cross_id": "C-2023-007", "breeding_team": "TM-CORN",
+      "applicant_orgs": ["ORG-IAAS", "ENT-01"],
+      "current_approval_id": "A-2026-042", "status": "approved_active",
+      "summary": "鲜食甜玉米，口感甜脆、皮薄，兼具机械粒收适应性"
+    },
+    {
+      "id": "V-ZN2025009", "name": "雪甜糯9号", "category_id": "SC-03",
+      "cross_id": "C-2022-031", "breeding_team": "TM-CORN",
+      "applicant_orgs": ["ORG-IAAS", "ENT-03"],
+      "current_approval_id": "A-2025-017", "status": "withdrawn",
+      "summary": "白粒甜加糯鲜食品种，因高湿区茎腐病风险主动撤回"
+    }
+  ],
+
+  "approvals": [
+    {
+      "id": "A-2026-042", "variety_id": "V-ZN2026001", "authority": "STA-REV",
+      "approved_at": "2026-03-18", "decision": "通过审定",
+      "document_no": "皖审玉2026042（虚构）",
+      "version": "v2026.1",
+      "supersedes": null,
+      "scope": {"type": "region_list", "regions": ["长江中下游夏播区", "黄淮海夏播区"], "site_ids": ["TP-HF", "TP-SQ"], "note": "宜昌（西南山地春播区）出籽率未达标，不在本版审定适宜区域内"},
+      "attached_trial_ids": ["TR-2024-HF", "TR-2024-SQ", "TR-2024-YC", "TR-2025-HF", "TR-2025-SQ"]
+    },
+    {
+      "id": "A-2025-017", "variety_id": "V-ZN2025009", "authority": "STA-REV",
+      "approved_at": "2025-02-20", "decision": "通过审定",
+      "document_no": "黑审玉2025017（虚构）",
+      "version": "v2025.1",
+      "supersedes": null,
+      "scope": {"type": "region_list", "regions": ["北方春播早熟区"], "site_ids": ["TP-HJ"], "note": "限北方春播早熟区种植"},
+      "attached_trial_ids": ["TR-2024-HJ", "TR-2025-HJ"]
+    }
+  ],
+
+  "approval_change_sets": [
+    {
+      "id": "AC-2026-06", "variety_id": "V-ZN2026001", "kind": "regional_adaptation_update",
+      "issued_at": "2026-06-10", "issued_by": "STA-REV",
+      "scope": {"type": "region_list", "regions": ["黄淮海夏播区"], "site_ids": ["TP-SQ"], "note": "仅在黄淮海夏播区补充适宜播期与密度说明"},
+      "summary": "黄海南部点2025阵风年型倒伏7.8%接近阈值，新增适播窗口（6月10日前）与密度上限建议；不改变长江中下游区已公布参数。",
+      "affects_approval_version": "v2026.1",
+      "confirmed_by": ["STA-REV", "ORG-IAAS", "ENT-01"],
+      "confirmation_ids": ["CNF-05"]
+    }
+  ],
+
+  "technique_packages": [
+    {
+      "id": "PK-01", "variety_id": "V-ZN2026001", "name": "金甜玉1号长江中下游夏播配套技术",
+      "version": "v1", "issued_at": "2026-04-01", "issued_by": "STA-EXT",
+      "scope": {"type": "region_list", "regions": ["长江中下游夏播区"], "site_ids": ["TP-HF"]},
+      "items": ["适播期3月25日-4月10日", "密度3200株/亩", "鲜穗授粉后21-23天采收", "隔离种植防串粉"],
+      "supersedes": null
+    },
+    {
+      "id": "PK-02", "variety_id": "V-ZN2026001", "name": "金甜玉1号黄淮海机收配套技术",
+      "version": "v2", "issued_at": "2026-06-12", "issued_by": "STA-EXT",
+      "scope": {"type": "region_list", "regions": ["黄淮海夏播区"], "site_ids": ["TP-SQ"]},
+      "items": ["适播期6月10日前", "密度3500株/亩", "籽粒含水率72%左右机械粒收", "配套4行鲜食玉米收获机"],
+      "supersedes": "PK-01"
+    }
+  ],
+
+  "ip_shares": [
+    {"id": "IP-01", "variety_id": "V-ZN2026001", "version": 1, "effective_from": "2026-03-20", "basis": "初始权属约定",
+     "shares": [{"party_id": "ORG-IAAS", "share_pct": 60}, {"party_id": "ORG-UNIV", "share_pct": 10}, {"party_id": "ENT-01", "share_pct": 30}],
+     "confirmed_by": ["ORG-IAAS", "ORG-UNIV", "ENT-01"], "confirmation_ids": ["CNF-04"]},
+    {"id": "IP-02", "variety_id": "V-ZN2026001", "version": 2, "effective_from": "2026-05-06", "basis": "企业追加机械化试验与中试投入，按补充协议调整",
+     "shares": [{"party_id": "ORG-IAAS", "share_pct": 55}, {"party_id": "ORG-UNIV", "share_pct": 10}, {"party_id": "ENT-01", "share_pct": 35}],
+     "confirmed_by": ["ORG-IAAS", "ORG-UNIV", "ENT-01"], "confirmation_ids": ["CNF-06"]},
+    {"id": "IP-03", "variety_id": "V-ZN2025009", "version": 1, "effective_from": "2025-03-01", "basis": "初始权属约定",
+     "shares": [{"party_id": "ORG-IAAS", "share_pct": 50}, {"party_id": "ENT-03", "share_pct": 50}],
+     "confirmed_by": ["ORG-IAAS", "ENT-03"], "confirmation_ids": ["CNF-07"]}
+  ],
+
+  "confirmations": [
+    {"id": "CNF-01", "topic": "材料GP-007移交（T-01/T-02）用途、数量、代次确认", "at": "2023-02-16", "parties": ["ORG-IAAS", "ENT-01"], "related": ["T-01", "T-02"]},
+    {"id": "CNF-02", "topic": "材料GP-021移交（T-03）确认", "at": "2023-02-21", "parties": ["ORG-IAAS", "ENT-01"], "related": ["T-03"]},
+    {"id": "CNF-03", "topic": "苦荞GP-101跨单位移交确认", "at": "2023-03-07", "parties": ["ORG-UNIV", "ORG-IAAS", "ENT-02"], "related": ["T-04"]},
+    {"id": "CNF-04", "topic": "金甜玉1号知识产权初始比例（IP-01）各方确认", "at": "2026-03-21", "parties": ["ORG-IAAS", "ORG-UNIV", "ENT-01"], "related": ["IP-01"]},
+    {"id": "CNF-05", "topic": "黄淮海区域适配变更（AC-2026-06）范围确认", "at": "2026-06-11", "parties": ["STA-REV", "ORG-IAAS", "ENT-01"], "related": ["AC-2026-06"]},
+    {"id": "CNF-06", "topic": "知识产权比例调整（IP-02）各方重新确认", "at": "2026-05-07", "parties": ["ORG-IAAS", "ORG-UNIV", "ENT-01"], "related": ["IP-02"]},
+    {"id": "CNF-07", "topic": "雪甜糯9号知识产权比例（IP-03）确认", "at": "2025-03-02", "parties": ["ORG-IAAS", "ENT-03"], "related": ["IP-03"]},
+    {"id": "CNF-08", "topic": "金甜玉1号独占许可（L-001）条款确认", "at": "2026-04-03", "parties": ["ORG-IAAS", "ENT-01"], "related": ["L-001"]},
+    {"id": "CNF-09", "topic": "许可补充协议（L-001-A1）确认", "at": "2026-07-11", "parties": ["ORG-IAAS", "ENT-01"], "related": ["L-001-A1"]},
+    {"id": "CNF-10", "topic": "雪甜糯9号撤回（W-01）各方确认与停售通知", "at": "2026-08-06", "parties": ["STA-REV", "ORG-IAAS", "ENT-03"], "related": ["W-01"]}
+  ],
+
+  "licenses": [
+    {
+      "id": "L-001", "variety_id": "V-ZN2026001", "licensor": "ORG-IAAS", "licensee": "ENT-01",
+      "type": "独占实施许可", "signed_at": "2026-04-02", "status": "active",
+      "scope": {"type": "region_list", "regions": ["长江中下游夏播区", "黄淮海夏播区"], "site_ids": ["TP-HF", "TP-SQ"]},
+      "term": {"start": "2026-04-02", "end": "2031-04-01"},
+      "grant": "审定适宜区域内生产、包装与以金甜玉1号名义销售种子",
+      "commercial_terms": {"visible_to": ["ORG-IAAS", "ENT-01"], "currency": "CNY", "entry_fee": 800000, "royalty_pct_of_revenue": 6.0, "min_annual_guarantee": 600000, "payment_milestones": "签约30%、首销售季40%、年末30%"},
+      "confirmation_ids": ["CNF-08"],
+      "amended_by": ["L-001-A1"]
+    },
+    {
+      "id": "L-001-A1", "variety_id": "V-ZN2026001", "licensor": "ORG-IAAS", "licensee": "ENT-01",
+      "type": "独占实施许可补充协议", "signed_at": "2026-07-10", "status": "active",
+      "scope": {"type": "region_list", "regions": ["黄淮海夏播区"], "site_ids": ["TP-SQ"], "note": "仅就黄淮海机收配套（PK-02）下调该区域最低保证并明确机收标签使用权"},
+      "term": {"start": "2026-07-10", "end": "2031-04-01"},
+      "grant": "黄淮海区域机收专用包装与宣传授权；其他区域条款仍以L-001为准",
+      "commercial_terms": {"visible_to": ["ORG-IAAS", "ENT-01"], "currency": "CNY", "min_annual_guarantee_region": 180000, "royalty_pct_of_revenue": 6.0, "note": "入门费与提成比例不变，仅调整该区域最低保证"},
+      "confirmation_ids": ["CNF-09"]
+    },
+    {
+      "id": "L-002", "variety_id": "V-ZN2025009", "licensor": "ORG-IAAS", "licensee": "ENT-03",
+      "type": "普通实施许可", "signed_at": "2025-03-10", "status": "terminated",
+      "scope": {"type": "region_list", "regions": ["北方春播早熟区"], "site_ids": ["TP-HJ"]},
+      "term": {"start": "2025-03-10", "end": "2030-03-09"},
+      "grant": "北方春播早熟区生产销售雪甜糯9号种子",
+      "commercial_terms": {"visible_to": ["ORG-IAAS", "ENT-03"], "currency": "CNY", "royalty_pct_of_revenue": 4.0, "note": "撤回后协议依约定终止"},
+      "confirmation_ids": ["CNF-07"],
+      "terminated_by_withdrawal": "W-01"
+    }
+  ],
+
+  "adoption_feedback": [
+    {"id": "AF-01", "variety_id": "V-ZN2026001", "reported_by": "ENT-01", "reported_at": "2026-06-30", "season": "2026春/夏", "region": "长江中下游夏播区", "site_id": "TP-HF", "planted_area_mu": 12000, "metric_updates": [{"metric_code": "感官品质总评分", "value": 8.4, "source": "收购点抽检"}], "issues": ["集中上市期冷链紧张"], "visible_to": ["*"]},
+    {"id": "AF-02", "variety_id": "V-ZN2026001", "reported_by": "ENT-01", "reported_at": "2026-07-25", "season": "2026夏", "region": "黄淮海夏播区", "site_id": "TP-SQ", "planted_area_mu": 8500, "metric_updates": [{"metric_code": "机收损失率", "value": 4.1, "source": "机收队实测"}], "issues": [], "visible_to": ["*"]},
+    {"id": "AF-03", "variety_id": "V-ZN2026001", "reported_by": "ENT-02", "reported_at": "2026-09-10", "season": "2026", "region": "长江中下游夏播区", "site_id": "TP-HF", "planted_area_mu": 3000, "metric_updates": [{"metric_code": "出籽率", "value": 69.2, "source": "加工厂订单批次"}], "issues": ["订单外散户混种导致糖度波动"], "visible_to": ["*"]},
+    {"id": "AF-04", "variety_id": "V-ZN2025009", "reported_by": "ENT-03", "reported_at": "2026-05-30", "season": "2026春", "region": "北方春播早熟区", "site_id": "TP-HJ", "planted_area_mu": 5200, "metric_updates": [], "issues": [], "visible_to": ["*"]},
+    {"id": "AF-05", "variety_id": "V-ZN2025009", "reported_by": "ENT-03", "reported_at": "2026-07-20", "season": "2026春", "region": "北方春播早熟区", "site_id": "TP-HJ", "planted_area_mu": 5200, "metric_updates": [{"metric_code": "茎腐病田间诱发鉴定", "value": 28.0, "source": "大区监测田间调查（自然发病折算）"}], "issues": ["多雨地块茎腐病病株率上升，建议停种评估"], "visible_to": ["*"]}
+  ],
+
+  "withdrawals": [
+    {
+      "id": "W-01", "variety_id": "V-ZN2025009", "initiated_by": "ENT-03", "co_initiated_by": ["ORG-IAAS"],
+      "noticed_at": "2026-08-05", "effective_at": "2026-08-05",
+      "reason": "2025年哈尔滨试验点茎腐病病情指数31.5（负面结果N-02）与2026年大区监测自然发病复现，高湿年型存在区域性病害风险，企业主动申请撤回。",
+      "evidence": ["N-02", "OBS-010", "AF-05"],
+      "scope": {"type": "all_approved_regions", "regions": ["北方春播早熟区"], "site_ids": ["TP-HJ"], "note": "撤回在全部已审定适宜区域生效，停止供种、销售与新签许可"},
+      "actions": ["终止许可L-002", "停售并召回未销售批次种子", "通知种植户改种"],
+      "confirmed_by": ["STA-REV", "ORG-IAAS", "ENT-03"],
+      "confirmation_ids": ["CNF-10"]
+    }
+  ]
+}
