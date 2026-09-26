@@ -1,21 +1,442 @@
 {
   "domain": "seed-research-transfer",
-  "version": 1,
-  "sample_id": "sample-011",
-  "actors": [
-    "业务负责人",
-    "执行人员",
-    "审查人员"
-  ],
+  "version": 2,
+  "sample_id": "sample-012",
   "facts": [
     "部分品种在试种后面临推广最后一公里困难",
     "企业将从育种材料阶段参与研发",
-    "品种推广依赖区域适配和配套栽培技术"
+    "品种推广依赖区域适配和配套栽培技术",
+    "企业提出的口感、加工和机械化要求必须转成可检验的试验指标",
+    "失败与负面试验结果和正面结果同等保留",
+    "同一资源由多个团队使用时各自保持可追踪谱系"
   ],
   "constraints": [
-    "种质与育种谱系",
-    "市场需求指标",
-    "多点试验数据",
-    "许可推广反馈"
+    "材料移交必须说明用途、数量和繁殖代次",
+    "未公开性状和商业条款按参与方隔离",
+    "审定版本、区域适配和栽培技术变化只作用于明确范围",
+    "合作方确认、知识产权比例调整、推广面积回传和品种撤回均留下时间依据",
+    "从上市品种可追到材料来源、试验条件、许可权利与实际种植表现"
+  ],
+  "parties": [
+    {
+      "id": "inst-hd",
+      "kind": "research_institute",
+      "name": "华东作物科学研究所（虚构）",
+      "roles": ["种质保存", "亲本创制", "试验设计"]
+    },
+    {
+      "id": "inst-sc",
+      "kind": "research_institute",
+      "name": "西南山地农业研究所（虚构）",
+      "roles": ["高原适应性鉴定"]
+    },
+    {
+      "id": "ent-feng",
+      "kind": "enterprise",
+      "name": "丰禾种业股份有限公司（虚构）",
+      "roles": ["需求提出", "组合选配", "许可经营", "推广回传"]
+    },
+    {
+      "id": "site-jx",
+      "kind": "trial_site",
+      "name": "江西红壤试验点（虚构）",
+      "roles": ["区域试验"]
+    },
+    {
+      "id": "site-sd",
+      "kind": "trial_site",
+      "name": "山东平原试验点（虚构）",
+      "roles": ["区域试验", "机械化采收验证"]
+    },
+    {
+      "id": "site-yn",
+      "kind": "trial_site",
+      "name": "云南高原试验点（虚构）",
+      "roles": ["区域试验", "高原适配验证"]
+    }
+  ],
+  "crop_categories": [
+    {
+      "id": "crop-fresh-waxy-corn",
+      "name": "鲜食糯玉米",
+      "note": "特色品类：鲜穗商超与机械化采收方向"
+    },
+    {
+      "id": "crop-processing-tomato",
+      "name": "加工番茄",
+      "note": "特色品类：制酱加工与机械采收方向"
+    }
+  ],
+  "indicators": [
+    {"id": "ind-peel-thick", "name": "果皮厚度", "method": "显微测微", "threshold": "≤65", "unit": "μm"},
+    {"id": "ind-sugar", "name": "可溶性糖含量", "method": "蒽酮比色法", "threshold": "≥12", "unit": "%"},
+    {"id": "ind-amylopectin", "name": "支链淀粉占比", "method": "双波长比色法", "threshold": "≥95", "unit": "%"},
+    {"id": "ind-ear-height-cv", "name": "穗位高度变异系数", "method": "田间群体测量", "threshold": "≤8", "unit": "%"},
+    {"id": "ind-stalk-puncture", "name": "茎秆穿刺强度", "method": "茎秆穿刺仪", "threshold": "≥45", "unit": "N"},
+    {"id": "ind-lodging", "name": "倒伏率", "method": "收获前田间调查", "threshold": "≤5", "unit": "%"},
+    {"id": "ind-brix", "name": "可溶性固形物", "method": "折光仪", "threshold": "≥4.8", "unit": "°Brix"},
+    {"id": "ind-firmness", "name": "果实硬度", "method": "果实硬度计", "threshold": "≥6.5", "unit": "kg/cm²"},
+    {"id": "ind-ripen-window", "name": "集中成熟期", "method": "田间成熟期记录", "threshold": "≤15", "unit": "天"},
+    {"id": "ind-fruit-rot", "name": "果腐病发病率", "method": "田间病害调查", "threshold": "≤3", "unit": "%"}
+  ],
+  "germplasm": [
+    {
+      "id": "gm-nuomi-12",
+      "name": "糯玉米自交系 南糯12（虚构）",
+      "category": "crop-fresh-waxy-corn",
+      "holder": "inst-hd",
+      "origin": "本所糯玉米种质库，2018年育成",
+      "public_traits": ["糯性（wxwx）", "果穗筒形"],
+      "restricted_traits": [
+        {
+          "trait": "支链淀粉合成酶新等位基因 SBE-IIb（未公开）",
+          "visible_to": ["inst-hd", "ent-feng"]
+        }
+      ]
+    },
+    {
+      "id": "gm-tian-3",
+      "name": "甜玉米自交系 粤甜3号（虚构）",
+      "category": "crop-fresh-waxy-corn",
+      "holder": "ent-feng",
+      "origin": "企业自育，2020年性状稳定",
+      "public_traits": ["超甜（sh2）"],
+      "restricted_traits": [
+        {
+          "trait": "胚乳含糖量动态积累曲线（未公开）",
+          "visible_to": ["ent-feng"]
+        }
+      ]
+    },
+    {
+      "id": "gm-fanqie-07",
+      "name": "加工番茄 红疆7号（虚构）",
+      "category": "crop-processing-tomato",
+      "holder": "inst-hd",
+      "origin": "本所加工番茄种质库，2016年育成",
+      "public_traits": ["有限生长型", "红果"],
+      "restricted_traits": []
+    },
+    {
+      "id": "gm-fanqie-kb",
+      "name": "野生醋栗番茄抗病材料 KB-41（虚构）",
+      "category": "crop-processing-tomato",
+      "holder": "inst-hd",
+      "origin": "2015年野外收集",
+      "public_traits": ["抗叶霉病"],
+      "restricted_traits": []
+    }
+  ],
+  "material_transfers": [
+    {
+      "id": "mt-001",
+      "material": "gm-nuomi-12",
+      "from": "inst-hd",
+      "to": "ent-feng",
+      "purpose": "鲜食糯玉米杂交组合选配与机械化性状评估",
+      "quantity": {"value": 300, "unit": "粒"},
+      "generation": "F4",
+      "transferred_at": "2024-02-20",
+      "branch": "lb-feng-nuomi12"
+    },
+    {
+      "id": "mt-002",
+      "material": "gm-nuomi-12",
+      "from": "inst-hd",
+      "to": "inst-sc",
+      "purpose": "高原生态适应性鉴定与异地加代",
+      "quantity": {"value": 150, "unit": "粒"},
+      "generation": "F4",
+      "transferred_at": "2024-03-05",
+      "branch": "lb-sc-nuomi12"
+    },
+    {
+      "id": "mt-003",
+      "material": "gm-fanqie-07",
+      "from": "inst-hd",
+      "to": "ent-feng",
+      "purpose": "加工番茄果实硬度与固形物性状验证",
+      "quantity": {"value": 200, "unit": "粒"},
+      "generation": "F3",
+      "transferred_at": "2024-01-15",
+      "branch": "lb-feng-fanqie07"
+    }
+  ],
+  "lineage_branches": [
+    {
+      "id": "lb-feng-nuomi12",
+      "material": "gm-nuomi-12",
+      "maintained_by": "ent-feng",
+      "origin_transfer": "mt-001",
+      "entries": [
+        {"generation": "F4", "recorded_at": "2024-02-25", "note": "接收后海南扩繁"},
+        {"generation": "F5", "recorded_at": "2024-08-30", "note": "海南加代选择"},
+        {"generation": "F6", "recorded_at": "2025-03-12", "note": "性状稳定，用作TN-8母本"}
+      ]
+    },
+    {
+      "id": "lb-sc-nuomi12",
+      "material": "gm-nuomi-12",
+      "maintained_by": "inst-sc",
+      "origin_transfer": "mt-002",
+      "entries": [
+        {"generation": "F4", "recorded_at": "2024-03-10", "note": "昆明高原播种"},
+        {"generation": "F5", "recorded_at": "2024-09-28", "note": "高原适应性选择"}
+      ]
+    },
+    {
+      "id": "lb-feng-fanqie07",
+      "material": "gm-fanqie-07",
+      "maintained_by": "ent-feng",
+      "origin_transfer": "mt-003",
+      "entries": [
+        {"generation": "F3", "recorded_at": "2024-01-20", "note": "接收后温室扩繁"},
+        {"generation": "BC1F1", "recorded_at": "2024-10-15", "note": "回交改良世代"}
+      ]
+    }
+  ],
+  "crosses": [
+    {
+      "id": "cross-tn8",
+      "code": "TN-8",
+      "made_by": "ent-feng",
+      "made_at": "2024-11-10",
+      "female": {"germplasm": "gm-nuomi-12", "branch": "lb-feng-nuomi12", "generation": "F6"},
+      "male": {"germplasm": "gm-tian-3", "branch": null, "generation": null}
+    },
+    {
+      "id": "cross-hj2",
+      "code": "HJ-2",
+      "made_by": "inst-hd",
+      "made_at": "2021-04-15",
+      "female": {"germplasm": "gm-fanqie-07", "branch": null, "generation": null},
+      "male": {"germplasm": "gm-fanqie-kb", "branch": null, "generation": null}
+    }
+  ],
+  "requirements": [
+    {
+      "id": "req-taste-1",
+      "raised_by": "ent-feng",
+      "raised_at": "2024-01-20",
+      "category": "taste",
+      "statement": "鲜食糯玉米需皮薄无渣、甜糯协调，达到商超鲜穗标准",
+      "indicator_ids": ["ind-peel-thick", "ind-sugar", "ind-amylopectin"],
+      "status": "supported",
+      "evidence": ["obs-tn8-24-jx-peel", "obs-tn8-24-sd-sugar", "obs-tn8-25-yn-amylopectin"]
+    },
+    {
+      "id": "req-mech-1",
+      "raised_by": "ent-feng",
+      "raised_at": "2024-01-20",
+      "category": "mechanization",
+      "statement": "适合机械化采收：穗位整齐、茎秆抗倒、收获期倒伏率低",
+      "indicator_ids": ["ind-ear-height-cv", "ind-stalk-puncture", "ind-lodging"],
+      "status": "partial",
+      "evidence": ["obs-tn8-25-yn-earcv", "obs-tn8-25-jx-puncture", "obs-tn8-24-jx-lodging", "obs-tn8-25-sd-lodging"]
+    },
+    {
+      "id": "req-proc-1",
+      "raised_by": "ent-feng",
+      "raised_at": "2022-01-12",
+      "category": "processing",
+      "statement": "加工番茄适合机械采收与储运：固形物高、硬度足、成熟集中",
+      "indicator_ids": ["ind-brix", "ind-firmness", "ind-ripen-window"],
+      "status": "partial",
+      "evidence": ["obs-hj2-22-sd-brix", "obs-hj2-23-sd-firm", "obs-hj2-23-yn-firm", "obs-hj2-23-sd-ripen"]
+    }
+  ],
+  "trial_protocols": [
+    {
+      "id": "tp-tn8-2425",
+      "cross": "cross-tn8",
+      "indicator_ids": ["ind-peel-thick", "ind-sugar", "ind-amylopectin", "ind-ear-height-cv", "ind-stalk-puncture", "ind-lodging"],
+      "sites": ["site-jx", "site-sd", "site-yn"],
+      "years": [2024, 2025],
+      "design": "随机区组，三次重复，鲜食糯玉米多点多年区域试验"
+    },
+    {
+      "id": "tp-hj2-2223",
+      "cross": "cross-hj2",
+      "indicator_ids": ["ind-brix", "ind-firmness", "ind-ripen-window", "ind-fruit-rot"],
+      "sites": ["site-sd", "site-yn"],
+      "years": [2022, 2023],
+      "design": "随机区组，三次重复，加工番茄区域试验"
+    }
+  ],
+  "trial_observations": [
+    {"id": "obs-tn8-24-jx-peel", "protocol": "tp-tn8-2425", "site": "site-jx", "year": 2024, "indicator": "ind-peel-thick", "result": "positive", "value": "61 μm", "recorded_by": "inst-hd", "recorded_at": "2024-08-12", "note": "达到口感指标"},
+    {"id": "obs-tn8-24-sd-sugar", "protocol": "tp-tn8-2425", "site": "site-sd", "year": 2024, "indicator": "ind-sugar", "result": "positive", "value": "12.8%", "recorded_by": "inst-hd", "recorded_at": "2024-08-20", "note": "达到口感指标"},
+    {"id": "obs-tn8-24-yn-sugar-fail", "protocol": "tp-tn8-2425", "site": "site-yn", "year": 2024, "indicator": "ind-sugar", "result": "failed", "value": "—", "recorded_by": "inst-sc", "recorded_at": "2024-06-30", "note": "苗期冷害致两个重复报废，失败记录保留"},
+    {"id": "obs-tn8-25-yn-amylopectin", "protocol": "tp-tn8-2425", "site": "site-yn", "year": 2025, "indicator": "ind-amylopectin", "result": "positive", "value": "97.2%", "recorded_by": "inst-sc", "recorded_at": "2025-08-25", "note": "达到口感指标"},
+    {"id": "obs-tn8-25-yn-earcv", "protocol": "tp-tn8-2425", "site": "site-yn", "year": 2025, "indicator": "ind-ear-height-cv", "result": "positive", "value": "7.2%", "recorded_by": "inst-sc", "recorded_at": "2025-08-26", "note": "穗位整齐，适合机收"},
+    {"id": "obs-tn8-25-jx-puncture", "protocol": "tp-tn8-2425", "site": "site-jx", "year": 2025, "indicator": "ind-stalk-puncture", "result": "positive", "value": "52 N", "recorded_by": "inst-hd", "recorded_at": "2025-08-10", "note": "茎秆强度达标"},
+    {"id": "obs-tn8-24-jx-lodging", "protocol": "tp-tn8-2425", "site": "site-jx", "year": 2024, "indicator": "ind-lodging", "result": "positive", "value": "2.8%", "recorded_by": "inst-hd", "recorded_at": "2024-08-15", "note": "倒伏率达标"},
+    {"id": "obs-tn8-25-sd-lodging", "protocol": "tp-tn8-2425", "site": "site-sd", "year": 2025, "indicator": "ind-lodging", "result": "negative", "value": "9.6%", "recorded_by": "inst-hd", "recorded_at": "2025-08-22", "note": "台风过境后倒伏率超标，负面结果保留用于抗倒改良"},
+    {"id": "obs-hj2-22-sd-brix", "protocol": "tp-hj2-2223", "site": "site-sd", "year": 2022, "indicator": "ind-brix", "result": "positive", "value": "5.1 °Brix", "recorded_by": "inst-hd", "recorded_at": "2022-09-05", "note": "固形物达标"},
+    {"id": "obs-hj2-23-sd-firm", "protocol": "tp-hj2-2223", "site": "site-sd", "year": 2023, "indicator": "ind-firmness", "result": "positive", "value": "6.8 kg/cm²", "recorded_by": "inst-hd", "recorded_at": "2023-09-02", "note": "硬度达标"},
+    {"id": "obs-hj2-23-yn-firm", "protocol": "tp-hj2-2223", "site": "site-yn", "year": 2023, "indicator": "ind-firmness", "result": "negative", "value": "5.9 kg/cm²", "recorded_by": "inst-sc", "recorded_at": "2023-09-08", "note": "高原低温年份硬度低于指标，负面结果保留"},
+    {"id": "obs-hj2-23-sd-ripen", "protocol": "tp-hj2-2223", "site": "site-sd", "year": 2023, "indicator": "ind-ripen-window", "result": "positive", "value": "12 天", "recorded_by": "inst-hd", "recorded_at": "2023-09-03", "note": "成熟集中，适合一次性机收"},
+    {"id": "obs-hj2-23-yn-rot", "protocol": "tp-hj2-2223", "site": "site-yn", "year": 2023, "indicator": "ind-fruit-rot", "result": "negative", "value": "18%", "recorded_by": "inst-sc", "recorded_at": "2023-09-09", "note": "果腐病点状暴发，负面结果保留，作为后续撤回评估依据"}
+  ],
+  "registrations": [
+    {
+      "id": "reg-tn8",
+      "variety_name": "华甜糯8号（虚构）",
+      "cross": "cross-tn8",
+      "version": "2026-国审-01",
+      "approved_at": "2026-06-18",
+      "scope": {"regions": ["江西", "山东", "云南"]},
+      "status": "active",
+      "withdrawn_at": null
+    },
+    {
+      "id": "reg-hj2",
+      "variety_name": "红疆2号（虚构）",
+      "cross": "cross-hj2",
+      "version": "2024-省审-02",
+      "approved_at": "2024-05-30",
+      "scope": {"regions": ["山东", "云南"]},
+      "status": "withdrawn",
+      "withdrawn_at": "2025-11-02"
+    }
+  ],
+  "cultivation_techniques": [
+    {
+      "id": "ct-tn8-js",
+      "registration": "reg-tn8",
+      "version": "v1.0",
+      "applies_to": {"regions": ["江西", "山东"]},
+      "issued_at": "2026-07-01",
+      "summary": "春播密度3200株/亩，分期播种保障鲜穗连续供应"
+    },
+    {
+      "id": "ct-tn8-yn",
+      "registration": "reg-tn8",
+      "version": "v1.0-高原",
+      "applies_to": {"regions": ["云南"]},
+      "issued_at": "2026-07-20",
+      "summary": "海拔1600–2000米区域播期提前7天，密度调整为3000株/亩"
+    }
+  ],
+  "licenses": [
+    {
+      "id": "lic-tn8-feng",
+      "registration": "reg-tn8",
+      "licensor": "inst-hd",
+      "licensee": "ent-feng",
+      "granted_at": "2026-07-25",
+      "status": "active",
+      "terminated_at": null,
+      "ip_shares": [
+        {"party": "inst-hd", "share": 0.55},
+        {"party": "ent-feng", "share": 0.45}
+      ],
+      "terms_visible_to": ["inst-hd", "ent-feng"],
+      "adjustments": [
+        {
+          "adjusted_at": "2026-08-30T15:30:00+08:00",
+          "reason": "企业追加机械化指标复验与亲本繁育投入",
+          "ip_shares": [
+            {"party": "inst-hd", "share": 0.5},
+            {"party": "ent-feng", "share": 0.5}
+          ],
+          "confirmed_by": ["inst-hd", "ent-feng"]
+        }
+      ]
+    },
+    {
+      "id": "lic-hj2-feng",
+      "registration": "reg-hj2",
+      "licensor": "inst-hd",
+      "licensee": "ent-feng",
+      "granted_at": "2024-06-20",
+      "status": "terminated",
+      "terminated_at": "2025-11-02",
+      "ip_shares": [
+        {"party": "inst-hd", "share": 0.6},
+        {"party": "ent-feng", "share": 0.4}
+      ],
+      "terms_visible_to": ["inst-hd", "ent-feng"],
+      "adjustments": []
+    }
+  ],
+  "promotion_feedback": [
+    {
+      "id": "fb-hj2-sd-2025",
+      "license": "lic-hj2-feng",
+      "reported_by": "ent-feng",
+      "reported_at": "2025-08-15",
+      "region": "山东",
+      "area_mu": 15000,
+      "performance": "果腐病田间发病率12%，超出加工收购标准，启动品种撤回评估"
+    },
+    {
+      "id": "fb-tn8-jx-2026",
+      "license": "lic-tn8-feng",
+      "reported_by": "ent-feng",
+      "reported_at": "2026-09-10",
+      "region": "江西",
+      "area_mu": 8600,
+      "performance": "机收穗位整齐，倒伏率3.1%，鲜穗商品率91%"
+    },
+    {
+      "id": "fb-tn8-yn-2026",
+      "license": "lic-tn8-feng",
+      "reported_by": "ent-feng",
+      "reported_at": "2026-09-12",
+      "region": "云南",
+      "area_mu": 3200,
+      "performance": "高海拔地块成熟期延长6天，按高原版配套技术调整播期后表现正常"
+    }
+  ],
+  "events": [
+    {
+      "id": "ev-hj2-area-2025",
+      "kind": "area_report",
+      "at": "2025-08-15T16:00:00+08:00",
+      "parties": ["ent-feng"],
+      "ref": "fb-hj2-sd-2025",
+      "note": "回传山东推广面积15000亩及病害表现"
+    },
+    {
+      "id": "ev-hj2-withdraw",
+      "kind": "withdrawal",
+      "at": "2025-11-02T09:00:00+08:00",
+      "parties": ["inst-hd", "ent-feng"],
+      "ref": "reg-hj2",
+      "note": "果腐病超标，撤回红疆2号，全部试验与推广记录保留"
+    },
+    {
+      "id": "ev-tn8-confirm",
+      "kind": "joint_confirmation",
+      "at": "2026-07-25T10:00:00+08:00",
+      "parties": ["inst-hd", "ent-feng"],
+      "ref": "lic-tn8-feng",
+      "note": "双方同时确认许可条款与知识产权比例55/45"
+    },
+    {
+      "id": "ev-tn8-ip-adj",
+      "kind": "ip_adjustment",
+      "at": "2026-08-30T15:30:00+08:00",
+      "parties": ["inst-hd", "ent-feng"],
+      "ref": "lic-tn8-feng",
+      "note": "知识产权比例调整为50/50"
+    },
+    {
+      "id": "ev-tn8-area-jx",
+      "kind": "area_report",
+      "at": "2026-09-10T17:00:00+08:00",
+      "parties": ["ent-feng"],
+      "ref": "fb-tn8-jx-2026",
+      "note": "回传江西推广面积8600亩"
+    },
+    {
+      "id": "ev-tn8-area-yn",
+      "kind": "area_report",
+      "at": "2026-09-12T17:30:00+08:00",
+      "parties": ["ent-feng"],
+      "ref": "fb-tn8-yn-2026",
+      "note": "回传云南推广面积3200亩"
+    }
   ]
 }

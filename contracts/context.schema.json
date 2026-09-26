@@ -1,15 +1,30 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "领域上下文",
+  "title": "种业联合研发转化后台领域上下文",
   "type": "object",
   "required": [
     "domain",
     "version",
     "sample_id",
-    "actors",
     "facts",
-    "constraints"
+    "constraints",
+    "parties",
+    "crop_categories",
+    "indicators",
+    "germplasm",
+    "material_transfers",
+    "lineage_branches",
+    "crosses",
+    "requirements",
+    "trial_protocols",
+    "trial_observations",
+    "registrations",
+    "cultivation_techniques",
+    "licenses",
+    "promotion_feedback",
+    "events"
   ],
+  "additionalProperties": false,
   "properties": {
     "domain": {
       "type": "string",
@@ -17,33 +32,965 @@
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 2
     },
     "sample_id": {
       "type": "string",
       "minLength": 1
     },
-    "actors": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "string"
-      }
-    },
     "facts": {
       "type": "array",
       "minItems": 1,
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "constraints": {
       "type": "array",
       "minItems": 1,
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "parties": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/party"
+      }
+    },
+    "crop_categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/crop_category"
+      }
+    },
+    "indicators": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/indicator"
+      }
+    },
+    "germplasm": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/germplasm"
+      }
+    },
+    "material_transfers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/material_transfer"
+      }
+    },
+    "lineage_branches": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/lineage_branch"
+      }
+    },
+    "crosses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/cross"
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/requirement"
+      }
+    },
+    "trial_protocols": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/trial_protocol"
+      }
+    },
+    "trial_observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/trial_observation"
+      }
+    },
+    "registrations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/registration"
+      }
+    },
+    "cultivation_techniques": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cultivation_technique"
+      }
+    },
+    "licenses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/license"
+      }
+    },
+    "promotion_feedback": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/promotion_feedback"
+      }
+    },
+    "events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/event"
       }
     }
   },
-  "additionalProperties": false
+  "$defs": {
+    "party": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "research_institute",
+            "enterprise",
+            "trial_site"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "crop_category": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "indicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "method",
+        "threshold",
+        "unit"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "threshold": {
+          "type": "string",
+          "minLength": 1
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "germplasm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "category",
+        "holder",
+        "origin",
+        "public_traits",
+        "restricted_traits"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "holder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin": {
+          "type": "string",
+          "minLength": 1
+        },
+        "public_traits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "restricted_traits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "trait",
+              "visible_to"
+            ],
+            "properties": {
+              "trait": {
+                "type": "string",
+                "minLength": 1
+              },
+              "visible_to": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "material_transfer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "material",
+        "from",
+        "to",
+        "purpose",
+        "quantity",
+        "generation",
+        "transferred_at",
+        "branch"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material": {
+          "type": "string",
+          "minLength": 1
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quantity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit"
+          ],
+          "properties": {
+            "value": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "generation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transferred_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "branch": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "lineage_branch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "material",
+        "maintained_by",
+        "origin_transfer",
+        "entries"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material": {
+          "type": "string",
+          "minLength": 1
+        },
+        "maintained_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin_transfer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "generation",
+              "recorded_at",
+              "note"
+            ],
+            "properties": {
+              "generation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "recorded_at": {
+                "type": "string",
+                "format": "date"
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "parent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "germplasm"
+      ],
+      "properties": {
+        "germplasm": {
+          "type": "string",
+          "minLength": 1
+        },
+        "branch": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "generation": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "cross": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "code",
+        "made_by",
+        "made_at",
+        "female",
+        "male"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "made_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "made_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "female": {
+          "$ref": "#/$defs/parent"
+        },
+        "male": {
+          "$ref": "#/$defs/parent"
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "raised_by",
+        "raised_at",
+        "category",
+        "statement",
+        "indicator_ids",
+        "status",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raised_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raised_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "category": {
+          "enum": [
+            "taste",
+            "processing",
+            "mechanization"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "indicator_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "status": {
+          "enum": [
+            "testing",
+            "supported",
+            "partial",
+            "unsupported"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "trial_protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "cross",
+        "indicator_ids",
+        "sites",
+        "years",
+        "design"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cross": {
+          "type": "string",
+          "minLength": 1
+        },
+        "indicator_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "sites": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "years": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer"
+          }
+        },
+        "design": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "trial_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "protocol",
+        "site",
+        "year",
+        "indicator",
+        "result",
+        "value",
+        "recorded_by",
+        "recorded_at",
+        "note"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "protocol": {
+          "type": "string",
+          "minLength": 1
+        },
+        "site": {
+          "type": "string",
+          "minLength": 1
+        },
+        "year": {
+          "type": "integer"
+        },
+        "indicator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "enum": [
+            "positive",
+            "negative",
+            "failed"
+          ]
+        },
+        "value": {
+          "type": "string"
+        },
+        "recorded_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recorded_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "registration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "variety_name",
+        "cross",
+        "version",
+        "approved_at",
+        "scope",
+        "status",
+        "withdrawn_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "variety_name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cross": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "regions"
+          ],
+          "properties": {
+            "regions": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "status": {
+          "enum": [
+            "active",
+            "withdrawn"
+          ]
+        },
+        "withdrawn_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "cultivation_technique": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "registration",
+        "version",
+        "applies_to",
+        "issued_at",
+        "summary"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "applies_to": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "regions"
+          ],
+          "properties": {
+            "regions": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "issued_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "share_list": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "party",
+          "share"
+        ],
+        "properties": {
+          "party": {
+            "type": "string",
+            "minLength": 1
+          },
+          "share": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "registration",
+        "licensor",
+        "licensee",
+        "granted_at",
+        "status",
+        "terminated_at",
+        "ip_shares",
+        "terms_visible_to",
+        "adjustments"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "registration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "licensor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "licensee": {
+          "type": "string",
+          "minLength": 1
+        },
+        "granted_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "terminated"
+          ]
+        },
+        "terminated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "ip_shares": {
+          "$ref": "#/$defs/share_list"
+        },
+        "terms_visible_to": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "adjustments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "adjusted_at",
+              "reason",
+              "ip_shares",
+              "confirmed_by"
+            ],
+            "properties": {
+              "adjusted_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ip_shares": {
+                "$ref": "#/$defs/share_list"
+              },
+              "confirmed_by": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "promotion_feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "license",
+        "reported_by",
+        "reported_at",
+        "region",
+        "area_mu",
+        "performance"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reported_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reported_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "region": {
+          "type": "string",
+          "minLength": 1
+        },
+        "area_mu": {
+          "type": "number",
+          "minimum": 0
+        },
+        "performance": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "at",
+        "parties",
+        "ref",
+        "note"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "joint_confirmation",
+            "ip_adjustment",
+            "area_report",
+            "withdrawal"
+          ]
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "parties": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
 }
